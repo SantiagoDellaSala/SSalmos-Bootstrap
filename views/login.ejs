@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <title>SSalmos</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
+  </head>
+  <body class="d-flex flex-column full-height">
+    <%- include('./partials/header.ejs') %>
+    <main class="container flex-grow-1 py-4">
+      <form>
+        <div class="form-group">
+          <label for="usuario">Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            id="usuario"
+            placeholder="Usuario"
+          />
+        </div>
+        <div class="form-group">
+          <label for="contraseña">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="contraseña"
+            placeholder="Contraseña"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      </form>
+    </main>
+
+    <%- include('./partials/footer') %>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

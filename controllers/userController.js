@@ -4,5 +4,14 @@ module.exports = {
       },
     login : (req, res) => {
         res.render('login');
+    },
+    edit : (req, res) => {
+        res.render('editProfile')
+    },
+    profile : (req, res) => {
+        res.render('profile')
+    },
+    cart : (req, res) => {
+        res.render('shoppingCart')
     }
 };

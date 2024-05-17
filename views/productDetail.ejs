@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('./partials/head.ejs') %>
+  <style>
+    .carousel-item img {
+      max-height: 500px; 
+      object-fit: cover; 
+    }
+  </style>
+  <body class="d-flex flex-column full-height">
+    <%- include('./partials/header.ejs') %>
+
+    <main class="container flex-grow-1 py-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="productCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#productCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#productCarousel" data-slide-to="1"></li>
+              <li data-target="#productCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/images/1.jpeg" class="d-block w-100" alt="Imagen 1 del producto">
+              </div>
+              <div class="carousel-item">
+                <img src="/images/2.jpeg" class="d-block w-100" alt="Imagen 2 del producto">
+              </div>
+              <div class="carousel-item">
+                <img src="/images/3.jpeg" class="d-block w-100" alt="Imagen 3 del producto">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Siguiente</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h1>Guantes Deportivos</h1>
+          <p>Stock disponible: <span id="stock">25</span></p>
+          <div class="form-group">
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" class="form-control" min="1" value="1">
+          </div>
+          <button class="btn btn-primary btn-block" onclick="location.href='/users/shopping-cart'">Agregar al carrito</button>
+          <div class="mt-3">
+            <h5>Medios de Pago</h5>
+            <img src="/images/mercadopago.png" alt="mercadopago" class="img-fluid w-25">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <p>
+            Maximiza tu rendimiento y protege tus manos con nuestros guantes deportivos multifuncionales, perfectos para gimnasio, spinning y una variedad de actividades físicas. Diseñados para ofrecerte comodidad y durabilidad, estos guantes combinan materiales de alta calidad para asegurar una experiencia óptima.
+            <br>
+            <br>
+            <h6>Características Principales:</h6>
+            *Parte Superior de Lycra: La parte superior está confeccionada con lycra elástica, lo que garantiza una ventilación excelente y un ajuste cómodo y flexible, permitiéndote moverte libremente sin restricciones.
+            <br>
+            *Palma de Cuero de Calidad: La palma de los guantes está hecha de cuero de alta calidad, proporcionando una protección superior y un agarre firme y seguro. El cuero también ofrece una mayor resistencia al desgaste, asegurando una larga vida útil de los guantes.
+            <br>
+            *Versatilidad: Ideales para una amplia gama de actividades, incluyendo levantamiento de pesas, ciclismo de interior, entrenamiento funcional y cualquier otra actividad que requiera una protección adicional en las manos.
+            <br>
+            *Comodidad y Ajuste: Diseñados para adaptarse perfectamente a la forma de tus manos, estos guantes cuentan con un cierre ajustable que garantiza un ajuste seguro y personalizado.
+            <br>
+            <br>
+            <h6>Beneficios: </h6> 
+            *Protección: Protege tus manos de callosidades, ampollas y lesiones, permitiéndote enfocarte en tu entrenamiento sin molestias.
+            <br>
+            *Rendimiento: Mejora tu agarre y control sobre los equipos, maximizando tu rendimiento en cada sesión de entrenamiento.
+            <br>
+            *Durabilidad: Materiales de alta calidad que aseguran una larga vida útil y una resistencia superior al uso intensivo.
+            <br>
+            *Ya sea que estés entrenando en el gimnasio, participando en clases de spinning, o realizando cualquier otra actividad física que requiera protección para tus manos, nuestros guantes deportivos multifuncionales son la elección perfecta para acompañarte en tu camino hacia un mejor rendimiento y protección.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

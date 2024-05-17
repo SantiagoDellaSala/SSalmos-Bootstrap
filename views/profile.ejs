@@ -5,6 +5,7 @@
     <%- include('./partials/header.ejs') %>
 
     <main class="container flex-grow-1 py-4">
+      <h2>Perfil de Usuario</h2>
       <form>
         <div class="form-group">
           <label for="nombre">Nombre</label>
@@ -13,6 +14,8 @@
             class="form-control"
             id="nombre"
             placeholder="Nombre"
+            value="Silvia"
+            readonly
           />
         </div>
         <div class="form-group">
@@ -22,6 +25,8 @@
             class="form-control"
             id="apellido"
             placeholder="Apellido"
+            value="Ponce"
+            readonly
           />
         </div>
         <div class="form-group">
@@ -31,6 +36,8 @@
             class="form-control"
             id="usuarioRegistro"
             placeholder="Usuario"
+            value="silviaponce2024"
+            readonly
           />
         </div>
         <div class="form-group">
@@ -40,27 +47,12 @@
             class="form-control"
             id="email"
             placeholder="Correo Electrónico"
+            value="silviaponce@gmail.com"
+            readonly
           />
         </div>
-        <div class="form-group">
-          <label for="contraseñaRegistro">Contraseña</label>
-          <input
-            type="password"
-            class="form-control"
-            id="contraseñaRegistro"
-            placeholder="Contraseña"
-          />
-        </div>
-        <div class="form-group">
-          <label for="repetirContraseña">Repetir Contraseña</label>
-          <input
-            type="password"
-            class="form-control"
-            id="repetirContraseña"
-            placeholder="Repetir Contraseña"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Registrarse</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/users/edit'">Editar Perfil</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Inicio</button>
       </form>
     </main>
 

@@ -1,10 +1,10 @@
 const express = require('express');
-const { index, admin } = require('../controllers/indexController');
+const { list, admin } = require('../controllers/productController');
 const router = express.Router();
 
 /* GET home page. */
 router
-    .get('/', index)
+    .get('/', list)
     .get('/admin', admin)
 
 module.exports = router;

@@ -7,86 +7,9 @@
     <main class="container flex-grow-1 py-4">
       <section>
         <div class="row">
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/1.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/2.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/3.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/4.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/1.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/2.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/3.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-            <div class="card">
-              <img src="/images/4.jpeg" class="card-img-top" alt="Producto 1" />
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
-                <p class="card-text">$100</p>
-                <a href="/products/detail" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </article>
+          <% products.forEach(product => { %>
+            <%- include('./partials/article.ejs', { product: product }) %>
+          <% }) %>
         </div>
       </section>
     </main>

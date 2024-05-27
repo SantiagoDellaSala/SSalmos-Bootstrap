@@ -11,10 +11,11 @@ const router = express.Router();
 router
   .get('/register', authController.renderRegister)
   .post('/register', registerValidator, validationMiddleware, authController.register)
-  .get('/login', login)
+  .get('/login', (req, res) => res.render('login'))
   .post('/login', loginValidator, validationMiddleware, authController.login)
+  .get('/logout', authController.logout)
   .get('/edit', edit)
   .get('/profile', profile)
-  .get('/shopping-cart', cart)
+  .get('/shopping-cart', cart);
 
 module.exports = router;

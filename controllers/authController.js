@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const authController = {
   renderRegister: (req, res) => {
-    res.render('register', { errors: [] }); // Renderiza la vista de registro
+    res.render('register', { errors: [] });
   },
 
   register: async (req, res) => {
@@ -27,6 +27,7 @@ const authController = {
       return res.status(500).render('register', { errors: [{ msg: 'Error al registrar usuario' }] });
     }
   },
+
   login: async (req, res) => {
     try {
       const { usuario, contraseña } = req.body;
@@ -36,7 +37,7 @@ const authController = {
       // Buscamos al usuario por su nombre de usuario o correo electrónico
       const user = await User.findOne({
         where: {
-          [Op.or]: [{ userName: usuario }, { email: usuario }]
+          [Op.or]: [{ username: usuario }, { email: usuario }]
         }
       });
 
@@ -46,7 +47,7 @@ const authController = {
         return res.status(401).json({ error: 'Credenciales inválidas' });
       }
 
-      console.log(`Usuario encontrado: ${user.userName}`);
+      console.log(`Usuario encontrado: ${user.username}`);
 
       // Verificamos la contraseña
       console.log(`Contraseña en base de datos: ${user.password}`);
@@ -66,6 +67,15 @@ const authController = {
       console.error(error);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
+  },
+
+  logout: (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ error: 'No se pudo cerrar la sesión' });
+      }
+      res.redirect('/');
+    });
   }
 };
 

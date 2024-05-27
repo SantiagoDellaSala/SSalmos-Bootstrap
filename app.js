@@ -9,9 +9,17 @@ const session = require('express-session');
 const indexRouter = require('./routes/index.routes');
 const usersRouter = require('./routes/authRoutes.routes');
 const productsRouter = require('./routes/products.routes');
-const authRoutes = require('./routes/authRoutes.routes');
+//const authRoutes = require('./routes/authRoutes.routes');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
+
+app.use(session({
+  secret: 'santiago', // Cambia esto por una cadena segura en producción
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Asegúrate de que 'secure' esté configurado adecuadamente en producción
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,12 +30,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'santiago', // Cambia esto por una cadena secreta segura
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Asegúrate de que sea true si usas HTTPS
-}));
+
+// Middleware de autenticación
+app.use(authMiddleware);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

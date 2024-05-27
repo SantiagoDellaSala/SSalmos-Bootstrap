@@ -107,3 +107,36 @@ ADD CONSTRAINT `fk_products_items`
 ALTER TABLE `ssalmos_db`.`products` 
 CHANGE COLUMN `price` `price` INT UNSIGNED NOT NULL ,
 CHANGE COLUMN `stock` `stock` INT UNSIGNED NOT NULL ;
+
+ALTER TABLE `ssalmos_db`.`users` 
+DROP FOREIGN KEY `fk_shoppingcarts_users`;
+ALTER TABLE `ssalmos_db`.`users` 
+DROP COLUMN `troleyId`,
+DROP INDEX `fk_shoppingcarts_users_idx` ;
+;
+
+ALTER TABLE `ssalmos_db`.`shoppingcarts` 
+CHANGE COLUMN `id` `id` INT NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `ssalmos_db`.`users` 
+ADD COLUMN `troleyId` INT NOT NULL AFTER `password`,
+ADD INDEX `fk_shoppingcarts_users_idx` (`troleyId` ASC) VISIBLE;
+;
+ALTER TABLE `ssalmos_db`.`users` 
+ADD CONSTRAINT `fk_shoppingcarts_users`
+  FOREIGN KEY (`troleyId`)
+  REFERENCES `ssalmos_db`.`shoppingcarts` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+  ALTER TABLE `ssalmos_db`.`shoppingcarts` 
+DROP FOREIGN KEY `fk_items_shoppingcarts`;
+ALTER TABLE `ssalmos_db`.`shoppingcarts` 
+CHANGE COLUMN `itemId` `itemId` INT NOT NULL AFTER `total`;
+ALTER TABLE `ssalmos_db`.`shoppingcarts` ALTER INDEX `fk_items_shoppingcarts_idx` VISIBLE;
+ALTER TABLE `ssalmos_db`.`shoppingcarts` 
+ADD CONSTRAINT `fk_items_shoppingcarts`
+  FOREIGN KEY (`itemId`)
+  REFERENCES `ssalmos_db`.`items` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

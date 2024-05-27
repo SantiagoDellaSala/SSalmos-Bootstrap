@@ -5,13 +5,23 @@
     <%- include('./partials/header.ejs') %>
 
     <main class="container flex-grow-1 py-4">
-      <form>
+      <% if (errors && errors.length > 0) { %>
+        <div class="alert alert-danger">
+          <ul>
+            <% errors.forEach(function(error) { %>
+              <li><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+      <form action="/users/register" method="POST">
         <div class="form-group">
           <label for="nombre">Nombre</label>
           <input
             type="text"
             class="form-control"
             id="nombre"
+            name="nombre"
             placeholder="Nombre"
           />
         </div>
@@ -21,6 +31,7 @@
             type="text"
             class="form-control"
             id="apellido"
+            name="apellido"
             placeholder="Apellido"
           />
         </div>
@@ -30,6 +41,7 @@
             type="text"
             class="form-control"
             id="usuarioRegistro"
+            name="usuarioRegistro"
             placeholder="Usuario"
           />
         </div>
@@ -39,6 +51,7 @@
             type="email"
             class="form-control"
             id="email"
+            name="email"
             placeholder="Correo Electrónico"
           />
         </div>
@@ -48,6 +61,7 @@
             type="password"
             class="form-control"
             id="contraseñaRegistro"
+            name="contraseñaRegistro"
             placeholder="Contraseña"
           />
         </div>
@@ -57,6 +71,7 @@
             type="password"
             class="form-control"
             id="repetirContraseña"
+            name="repetirContraseña"
             placeholder="Repetir Contraseña"
           />
         </div>

@@ -7,10 +7,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true
         },
-        amount: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         total: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -19,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        productId: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false
         }
@@ -31,14 +27,14 @@ module.exports = (sequelize, DataTypes) => {
     const Shoppingcart = sequelize.define(alias, cols, config);
 
     Shoppingcart.associate = (models) => {
-        Shoppingcart.belongsTo(models.Item, {
-            foreignKey: 'productId',
-            as: 'product'
-        });
         Shoppingcart.belongsTo(models.State, {
             foreignKey: 'stateId',
             as: 'state'
         });
+        Shoppingcart.belongsTo(models.User, {
+            foreignKey: 'userId',
+            as: 'user'
+        });             
     };
 
     return Shoppingcart;

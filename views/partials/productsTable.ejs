@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header bg-primary text-white">Productos</div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(product => { %>
+            <tr>
+              <td><%= product.id %></td>
+              <td><%= product.name %></td>
+              <td><%= product.price %></td>
+              <td><%= product.stock %></td>
+              <td>
+                <img src="/images/<%= product.mainImage %>" alt="<%= product.name %>" width="50" />
+              </td>
+              <td>
+                <button class="btn btn-sm btn-info" onclick="location.href='/products/edit/<%= product.id %>'"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn btn-sm btn-primary" onclick="location.href='/products/detail/<%= product.id %>'"><i class="fa-solid fa-circle-info"></i></button>
+                <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

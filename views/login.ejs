@@ -4,13 +4,14 @@
   <body class="d-flex flex-column full-height">
     <%- include('./partials/header.ejs') %>
     <main class="container flex-grow-1 py-4">
-      <form>
+      <form action="/users/login" method="post"> <!-- Asegúrate de que el método y la acción sean correctos -->
         <div class="form-group">
           <label for="usuario">Usuario</label>
           <input
             type="text"
             class="form-control"
             id="usuario"
+            name="usuario"
             placeholder="Usuario"
           />
         </div>
@@ -20,6 +21,7 @@
             type="password"
             class="form-control"
             id="contraseña"
+            name="contraseña"
             placeholder="Contraseña"
           />
         </div>

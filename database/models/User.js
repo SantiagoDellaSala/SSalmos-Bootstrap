@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(45),
             allowNull: false,
         },
-        lastName: {
+        lastname: {
             type: DataTypes.STRING(45),
             allowNull: false,
         },
-        userName: {
+        username: {
             type: DataTypes.STRING(45),
             allowNull: false,
             unique: true
@@ -26,11 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         password: {
-            type: DataTypes.STRING(45),
-            allowNull: false,
-        },
-        troleyId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(60),
             allowNull: false,
         },
         roleId: {
@@ -45,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(alias, cols, config);
 
     User.associate = (models) => {
-        User.belongsTo(models.Shoppingcart, {
-            foreignKey: 'troleyId',
-            as: 'shoppingcart'
-        });
         User.belongsTo(models.Role, {
             foreignKey: 'roleId',
             as: 'role'

@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('statutes', [
+    await queryInterface.bulkInsert('states', [
       {
         id: 1,
         name: 'pendiente',
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('statutes', {
+    await queryInterface.bulkDelete('states', {
       name: {
         [Sequelize.Op.in]: ['pendiente', 'finalizado']
       }

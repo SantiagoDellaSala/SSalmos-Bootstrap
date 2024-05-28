@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
     }
     const config = {
-        tableName: 'statutes',
+        tableName: 'states',
         timestamps: false
     }
     const State = sequelize.define(alias, cols, config);

@@ -7,9 +7,8 @@ const logger = require('morgan');
 const session = require('express-session');
 
 const indexRouter = require('./routes/index.routes');
-const usersRouter = require('./routes/authRoutes.routes');
+const usersRouter = require('./routes/users.routes');
 const productsRouter = require('./routes/products.routes');
-//const authRoutes = require('./routes/authRoutes.routes');
 const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();

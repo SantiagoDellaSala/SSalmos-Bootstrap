@@ -9,7 +9,7 @@ module.exports = {
         lastname: 'Ponce',
         username: 'silviaponce2024',
         email: 'silviciclismo@gmail.com',
-        password: 'Figaro2020', 
+        password: '$2a$10$Pfux.BTrIo/RX5zCq1L8Z.KJFyZMsfNDd6TDXjCwQ0tq/a7xZLvl.', 
         roleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -20,7 +20,7 @@ module.exports = {
         lastname: 'Della Sala',
         username: 'janedoe',
         email: 'emiliano@gmail.com',
-        password: 'Figaro2021',
+        password: '$2a$10$Pfux.BTrIo/RX5zCq1L8Z.KJFyZMsfNDd6TDXjCwQ0tq/a7xZLvl.',
         roleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -31,7 +31,7 @@ module.exports = {
         lastname: 'Della Sala',
         username: 'santiagodellasala2024',
         email: 'dellasala1992@gmail.com',
-        password: 'Figaro2022',
+        password: '$2a$10$Pfux.BTrIo/RX5zCq1L8Z.KJFyZMsfNDd6TDXjCwQ0tq/a7xZLvl.',
         roleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -42,7 +42,7 @@ module.exports = {
         lastname: 'Manelli',
         username: 'leandromanelli2024',
         email: 'leandromanelli@gmail.com',
-        password: 'leandro1234',
+        password: '$2a$10$Pfux.BTrIo/RX5zCq1L8Z.KJFyZMsfNDd6TDXjCwQ0tq/a7xZLvl.',
         roleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -53,7 +53,7 @@ module.exports = {
         lastname: 'Cormenzana',
         username: 'lucianocormenzana2024',
         email: 'lucianocormenzana@gmail.com',
-        password: 'luciano1234',
+        password: '$2a$10$Pfux.BTrIo/RX5zCq1L8Z.KJFyZMsfNDd6TDXjCwQ0tq/a7xZLvl.',
         roleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()

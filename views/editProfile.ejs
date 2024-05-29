@@ -6,21 +6,21 @@
 
     <main class="container flex-grow-1 py-4">
       <h2>Editar Perfil</h2>
-      <form>
+      <form action="/users/<%= user.id %>/edit" method="post">
         <div class="form-group">
           <label for="firstName">Nombre</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" value="Silvia">
+          <input type="text" class="form-control" id="firstName" name="name" value="<%= user.name %>">
         </div>
         <div class="form-group">
           <label for="lastName">Apellido</label>
-          <input type="text" class="form-control" id="lastName" name="lastName" value="Ponce">
+          <input type="text" class="form-control" id="lastName" name="lastname" value="<%= user.lastname %>">
         </div>
         <div class="form-group">
           <label for="username">Usuario</label>
-          <input type="text" class="form-control" id="username" name="username" value="silviaponce2024">
+          <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>">
         </div>
-        <button type="button" class="btn btn-primary" onclick="location.href='/users/profile'">Guardar cambios</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/users/profile'">Volver</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/users/<%= user.id %>/profile'">Volver</button>
       </form>
     </main>
 

@@ -1,3 +1,4 @@
+const db = require("../database/models/index");
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const bcrypt = require('bcryptjs');
@@ -29,14 +30,12 @@ module.exports = {
   },
 
   loginn : (req, res) => {
-    res.render('login.ejs')
+    res.render('login.ejs');
   },
 
   login: async (req, res) => {
     try {
       const { usuario, contraseña } = req.body;
-
-      console.log(`Datos recibidos - Usuario: ${usuario}, Contraseña: ${contraseña}`);
 
       const user = await User.findOne({
         where: {
@@ -45,21 +44,13 @@ module.exports = {
       });
 
       if (!user) {
-        console.log('Usuario no encontrado');
         return res.status(401).json({ error: 'Credenciales inválidas' });
       }
 
-      console.log(`Usuario encontrado: ${user.username}`);
-
-      console.log(`Contraseña en base de datos: ${user.password}`);
       const isPasswordValid = await bcrypt.compare(contraseña, user.password);
-      console.log(`Comparación de contraseñas: ${isPasswordValid}`);
       if (!isPasswordValid) {
-        console.log('Contraseña inválida');
         return res.status(401).json({ error: 'Credenciales inválidas' });
       }
-
-      console.log('Inicio de sesión exitoso');
 
       req.session.user = user;
       return res.redirect('/');
@@ -67,6 +58,17 @@ module.exports = {
       console.error(error);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
+  },
+
+  admin: (req, res) => {
+    Promise.all([db.Product.findAll(), db.User.findAll()])
+      .then(([products, users]) => {
+        return res.render("dashboard", {
+          products,
+          users,
+        });
+      })
+      .catch((error) => console.log(error));
   },
 
   logout: (req, res) => {
@@ -77,13 +79,61 @@ module.exports = {
       res.redirect('/');
     });
   },
-  edit : (req, res) => {
-    res.render('editProfile')
+
+  editUser: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      res.render('editProfile', { user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al obtener el usuario');
+    }
   },
-  profile : (req, res) => {
-    res.render('profile')
+
+  updateUser: async (req, res) => {
+    try {
+      const { name, lastname, username } = req.body;
+
+      await User.update(
+        {
+          name,
+          lastname,
+          username
+        },
+        {
+          where: { id: req.params.id }
+        }
+      );
+      res.redirect(`/users/${req.params.id}/profile`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al actualizar el usuario');
+    }
   },
-  cart : (req, res) => {
-    res.render('shoppingCart')
+
+  profile: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      res.render('profile', { user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al obtener el perfil del usuario');
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    try {
+      await User.destroy({
+        where: { id: req.params.id }
+      });
+      res.redirect('/admin');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al eliminar el usuario');
+    }
+  },
+  
+  cart: (req, res) => {
+    res.render('shoppingCart');
   }
 };

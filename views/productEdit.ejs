@@ -6,7 +6,7 @@
 
     <main class="container flex-grow-1 py-4">
       <h2>Editar Producto</h2>
-      <form action="/update-product" method="POST" enctype="multipart/form-data">
+      <form action="/products/update/<%= product.id %>" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nombreProducto">Nombre del Producto</label>
           <input
@@ -14,7 +14,7 @@
             class="form-control"
             id="nombreProducto"
             name="nombreProducto"
-            value="Guantes deportivos"
+            value="<%= product.name %>"
           />
         </div>
         <div class="form-group">
@@ -24,28 +24,29 @@
             class="form-control"
             id="precioProducto"
             name="precioProducto"
-            value="5000"
+            value="<%= product.price %>"
             step="100"
           />
         </div>
         <div class="form-group">
-            <label for="precioProducto">Stock del Producto</label>
+            <label for="stockProducto">Stock del Producto</label>
             <input
               type="number"
               class="form-control"
-              id="precioProducto"
-              name="precioProducto"
-              value="13"
+              id="stockProducto"
+              name="stockProducto"
+              value="<%= product.stock %>"
               step="1"
             />
-          </div>
+        </div>
         <div class="form-group">
           <label>Imágenes del Producto</label>
           <div class="d-flex justify-content-between">
             <div class="text-center m-1">
               <label for="imagenProducto1">
-                <img src="/images/1.jpeg" alt="img1" class="img-thumbnail" style="width: 100px; height: 100px;">
+                <img src="/images/<%= product.mainImage %>" alt="img1" class="img-thumbnail" style="width: 100px; height: 100px;">
               </label>
+              <input type="hidden" name="currentMainImage" value="<%= product.mainImage %>" />
               <input
                 type="file"
                 class="form-control-file"
@@ -56,8 +57,9 @@
             </div>
             <div class="text-center m-1">
               <label for="imagenProducto2">
-                <img src="/images/2.jpeg" alt="img2" class="img-thumbnail" style="width: 100px; height: 100px;">
+                <img src="/images/<%= product.secondImage %>" alt="img2" class="img-thumbnail" style="width: 100px; height: 100px;">
               </label>
+              <input type="hidden" name="currentSecondImage" value="<%= product.secondImage %>" />
               <input
                 type="file"
                 class="form-control-file"
@@ -68,8 +70,9 @@
             </div>
             <div class="text-center m-1">
               <label for="imagenProducto3">
-                <img src="/images/3.jpeg" alt="img3" class="img-thumbnail" style="width: 100px; height: 100px;">
+                <img src="/images/<%= product.thirdImage %>" alt="img3" class="img-thumbnail" style="width: 100px; height: 100px;">
               </label>
+              <input type="hidden" name="currentThirdImage" value="<%= product.thirdImage %>" />
               <input
                 type="file"
                 class="form-control-file"
@@ -80,7 +83,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/admin'">Volver</button>
       </form>
     </main>

@@ -1,142 +1,156 @@
-CREATE SCHEMA `ssalmos_db` ;
+-- MySQL Workbench Forward Engineering
 
-CREATE TABLE `ssalmos_db`.`roles` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`));
-  
-CREATE TABLE `ssalmos_db`.`images` (
-  `id` INT NOT NULL,
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ssalmos_db
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ssalmos_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ssalmos_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `ssalmos_db` ;
+
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`products`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`products` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
+  `price` INT UNSIGNED NOT NULL,
+  `stock` INT UNSIGNED NOT NULL,
+  `mainImage` VARCHAR(255) NOT NULL,
+  `secondImage` VARCHAR(255) NOT NULL,
+  `thirdImage` VARCHAR(255) NOT NULL,
   `createdAt` DATETIME NOT NULL,
   `updatedAt` DATETIME NOT NULL,
-  PRIMARY KEY (`id`));
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE `ssalmos_db`.`statutes` (
+
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`states`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`states` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`));
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE `ssalmos_db`.`items` (
-  `id` INT NOT NULL,
-  `productId` INT NOT NULL,
-  `amount` INT NOT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NOT NULL,
-  PRIMARY KEY (`id`));
-  
-  CREATE TABLE `ssalmos_db`.`shoppingcarts` (
-  `id` INT NOT NULL,
-  `amount` INT NOT NULL,
-  `total` INT NOT NULL,
-  `userId` INT NOT NULL,
-  `stateId` INT NOT NULL,
-  `itemId` INT NOT NULL,
-  PRIMARY KEY (`id`));
-  
-  CREATE TABLE `ssalmos_db`.`users` (
+
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `troleyId` INT NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
   `roleId` INT NOT NULL,
   `createdAt` DATETIME NOT NULL,
   `updatedAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_shoppingcarts_users_idx` (`troleyId` ASC) VISIBLE,
-  INDEX `fk_roles_users_idx` (`roleId` ASC) VISIBLE,
-  CONSTRAINT `fk_shoppingcarts_users`
-    FOREIGN KEY (`troleyId`)
-    REFERENCES `ssalmos_db`.`shoppingcarts` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_roles_users`
-    FOREIGN KEY (`roleId`)
-    REFERENCES `ssalmos_db`.`roles` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-    
-    ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-ADD INDEX `fk_statutes_shoppingcarts_idx` (`stateId` ASC) VISIBLE,
-ADD INDEX `fk_items_shoppingcarts_idx` (`itemId` ASC) VISIBLE;
-;
-ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-ADD CONSTRAINT `fk_statutes_shoppingcarts`
-  FOREIGN KEY (`stateId`)
-  REFERENCES `ssalmos_db`.`statutes` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_items_shoppingcarts`
-  FOREIGN KEY (`itemId`)
-  REFERENCES `ssalmos_db`.`items` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-  CREATE TABLE `ssalmos_db`.`products` (
+  UNIQUE INDEX `username` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`shoppingcarts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`shoppingcarts` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `price` INT NOT NULL,
-  `stock` INT NOT NULL,
-  `mainImage` VARCHAR(255) NOT NULL,
-  `imageId` INT NOT NULL,
+  `total` INT NOT NULL,
+  `stateId` INT NOT NULL,
+  `userId` INT NOT NULL,
   `createdAt` DATETIME NOT NULL,
   `updatedAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_images_products_idx` (`imageId` ASC) VISIBLE,
-  CONSTRAINT `fk_images_products`
-    FOREIGN KEY (`imageId`)
-    REFERENCES `ssalmos_db`.`images` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  INDEX `fk_shoppingcart_state` (`stateId` ASC) VISIBLE,
+  INDEX `fk_shoppingcart_user` (`userId` ASC) VISIBLE,
+  CONSTRAINT `fk_shoppingcart_state`
+    FOREIGN KEY (`stateId`)
+    REFERENCES `ssalmos_db`.`states` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_shoppingcart_user`
+    FOREIGN KEY (`userId`)
+    REFERENCES `ssalmos_db`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
-ALTER TABLE `ssalmos_db`.`items` 
-ADD INDEX `fk_products_items_idx` (`productId` ASC) VISIBLE;
-;
-ALTER TABLE `ssalmos_db`.`items` 
-ADD CONSTRAINT `fk_products_items`
-  FOREIGN KEY (`productId`)
-  REFERENCES `ssalmos_db`.`products` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
 
-ALTER TABLE `ssalmos_db`.`products` 
-CHANGE COLUMN `price` `price` INT UNSIGNED NOT NULL ,
-CHANGE COLUMN `stock` `stock` INT UNSIGNED NOT NULL ;
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`items`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`items` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `quantity` INT NOT NULL,
+  `productId` INT NOT NULL,
+  `shoppingcartId` INT NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedAt` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_item_product` (`productId` ASC) VISIBLE,
+  INDEX `fk_item_shoppingcart` (`shoppingcartId` ASC) VISIBLE,
+  CONSTRAINT `fk_item_product`
+    FOREIGN KEY (`productId`)
+    REFERENCES `ssalmos_db`.`products` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_item_shoppingcart`
+    FOREIGN KEY (`shoppingcartId`)
+    REFERENCES `ssalmos_db`.`shoppingcarts` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
-ALTER TABLE `ssalmos_db`.`users` 
-DROP FOREIGN KEY `fk_shoppingcarts_users`;
-ALTER TABLE `ssalmos_db`.`users` 
-DROP COLUMN `troleyId`,
-DROP INDEX `fk_shoppingcarts_users_idx` ;
-;
 
-ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-CHANGE COLUMN `id` `id` INT NOT NULL AUTO_INCREMENT ;
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`roles` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
-ALTER TABLE `ssalmos_db`.`users` 
-ADD COLUMN `troleyId` INT NOT NULL AFTER `password`,
-ADD INDEX `fk_shoppingcarts_users_idx` (`troleyId` ASC) VISIBLE;
-;
-ALTER TABLE `ssalmos_db`.`users` 
-ADD CONSTRAINT `fk_shoppingcarts_users`
-  FOREIGN KEY (`troleyId`)
-  REFERENCES `ssalmos_db`.`shoppingcarts` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-  ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-DROP FOREIGN KEY `fk_items_shoppingcarts`;
-ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-CHANGE COLUMN `itemId` `itemId` INT NOT NULL AFTER `total`;
-ALTER TABLE `ssalmos_db`.`shoppingcarts` ALTER INDEX `fk_items_shoppingcarts_idx` VISIBLE;
-ALTER TABLE `ssalmos_db`.`shoppingcarts` 
-ADD CONSTRAINT `fk_items_shoppingcarts`
-  FOREIGN KEY (`itemId`)
-  REFERENCES `ssalmos_db`.`items` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+
+-- -----------------------------------------------------
+-- Table `ssalmos_db`.`sequelizemeta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssalmos_db`.`sequelizemeta` (
+  `name` VARCHAR(255) COLLATE 'utf8mb3_unicode_ci' NOT NULL,
+  PRIMARY KEY (`name`),
+  UNIQUE INDEX `name` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

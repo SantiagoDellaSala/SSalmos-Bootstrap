@@ -115,7 +115,8 @@ module.exports = {
   
       // Actualizar la contraseña solo si se proporciona
       if (password) {
-        user.password = password; // Asegúrate de hashear la contraseña antes de guardar
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
       }
   
       // Actualizar el rol solo si el usuario que edita es un administrador

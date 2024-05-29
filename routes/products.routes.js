@@ -1,8 +1,9 @@
-// routes/productRoutes.js
 const express = require('express');
-const { detail, editProduct, updateProduct, deleteProduct } = require('../controllers/productController');
 const router = express.Router();
+const { detail, editProduct, updateProduct, deleteProduct, createProductForm, createProduct } = require('../controllers/productController');
 const upload = require('../middlewares/multerConfig'); // Importa la configuración de multer
+const productValidator = require('../validations/productValidator'); // Importa el archivo de validación
+const validationMiddleware = require('../middlewares/validationMiddleware'); // Importa el middleware de validación
 
 /* /products */
 router
@@ -14,5 +15,11 @@ router
     { name: 'imagenProducto3' }
   ]), updateProduct)
   .get('/deleteP/:id', deleteProduct)
+  .get('/create', createProductForm)
+  .post('/create', upload.fields([
+    { name: 'mainImage' },
+    { name: 'secondImage' },
+    { name: 'thirdImage' }
+  ]), productValidator, validationMiddleware, createProduct)
 
 module.exports = router;

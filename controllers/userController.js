@@ -83,34 +83,57 @@ module.exports = {
   editUser: async (req, res) => {
     try {
       const user = await User.findByPk(req.params.id);
-      res.render('editProfile', { user });
+      if (!user) {
+        return res.status(404).render("error", { message: "User not found" });
+      }
+  
+      if (req.session.user && req.session.user.roleId === 1) {
+        return res.render('editProfileAdmin', { user, currentUser: req.session.user });
+      } else {
+        return res.render('editProfileUser', { user, currentUser: req.session.user });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).send('Error al obtener el usuario');
     }
-  },
-
+  },  
+  
   updateUser: async (req, res) => {
+    const userId = req.params.id;
+    const { name, lastname, username, password, role } = req.body;
+  
     try {
-      const { name, lastname, username } = req.body;
-
-      await User.update(
-        {
-          name,
-          lastname,
-          username
-        },
-        {
-          where: { id: req.params.id }
-        }
-      );
-      res.redirect(`/users/${req.params.id}/profile`);
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).render("error", { message: "User not found" });
+      }
+  
+      // Actualizar los campos del usuario
+      user.name = name;
+      user.lastname = lastname;
+      user.username = username;
+  
+      // Actualizar la contraseña solo si se proporciona
+      if (password) {
+        user.password = password; // Asegúrate de hashear la contraseña antes de guardar
+      }
+  
+      // Actualizar el rol solo si el usuario que edita es un administrador
+      if (req.session.user && req.session.user.roleId === 1) {
+        user.roleId = role;
+      }
+  
+      // Guardar los cambios en la base de datos
+      await user.save();
+  
+      // Redirigir a la página de perfil del usuario
+      return res.redirect(`/users/${userId}/profile`);
     } catch (error) {
       console.error(error);
-      res.status(500).send('Error al actualizar el usuario');
+      res.status(500).send('Internal Server Error');
     }
   },
-
+  
   profile: async (req, res) => {
     try {
       const user = await User.findByPk(req.params.id);

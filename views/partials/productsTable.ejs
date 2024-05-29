@@ -6,7 +6,7 @@
     <span>Productos</span>
     <button
       class="btn btn-sm btn-success float-right"
-      onclick="location.href='/products/add'"
+      onclick="location.href='/products/create'"
     >
       Nuevo producto
     </button>
@@ -82,7 +82,7 @@
       if (result.isConfirmed) {
         window.location.href = `/products/deleteP/${productId}`;
       } else {
-        window.location.href = '/admin';
+        window.location.href = '/users/admin';
       }
     });
   }

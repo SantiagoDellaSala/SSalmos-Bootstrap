@@ -45,51 +45,5 @@
         }
       }
     </script>
-    <script>
-      // Espera a que el DOM esté cargado
-      document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
-        form.addEventListener('submit', async function (event) {
-          event.preventDefault(); // Evita que se envíe el formulario por defecto
-    
-          // Envía la solicitud al servidor
-          try {
-            const response = await fetch('/users/login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                usuario: document.getElementById('usuario').value,
-                contraseña: document.getElementById('contraseña').value
-              })
-            });
-    
-            // Maneja la respuesta del servidor
-            const data = await response.json();
-            if (response.ok) {
-              // Redirige si las credenciales son válidas
-              window.location.href = '/';
-            } else {
-              // Muestra la alerta si las credenciales son inválidas
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: data.error
-              });
-            }
-          } catch (error) {
-            console.error('Error:', error);
-            // Muestra una alerta si hay un error de red o del servidor
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Ha ocurrido un error. Por favor, intenta de nuevo más tarde.'
-            });
-          }
-        });
-      });
-    </script>
-    
   </body>
 </html>

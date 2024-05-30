@@ -20,34 +20,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <input type="checkbox" name="eliminar[]" value="1">
-                </td>
-                <td>
-                  <img src="/images/1.jpeg" alt="1" class="img-thumbnail" style="width: 100px; height: 100px;">
-                </td>
-                <td>Guantes deportivos</td>
-                <td>$5000</td>
-                <td>
-                  <input type="number" name="cantidad[]" value="13" class="form-control" style="width: 60px;">
-                </td>
-                <td>$65.000</td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="checkbox" name="eliminar[]" value="1">
-                </td>
-                <td>
-                  <img src="/images/2.jpeg" alt="1" class="img-thumbnail" style="width: 100px; height: 100px;">
-                </td>
-                <td>Guantes deportivos 2</td>
-                <td>$5000</td>
-                <td>
-                  <input type="number" name="cantidad[]" value="15" class="form-control" style="width: 60px;">
-                </td>
-                <td>$75.000</td>
-              </tr>
+              <% products.forEach(product => { %>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="eliminar[]" value="<%= product.id %>">
+                  </td>
+                  <td>
+                    <img src="<%= product.mainImage %>" alt="<%= product.name %>" class="img-thumbnail" style="width: 100px; height: 100px;">
+                  </td>
+                  <td><%= product.name %></td>
+                  <td>$<%= product.price %></td>
+                  <td>
+                    <input type="number" name="cantidad[]" value="1" class="form-control" style="width: 60px;">
+                  </td>
+                  <td>$<%= product.price * 1 %></td>
+                </tr>
+              <% }); %>
             </tbody>
           </table>
         </div>

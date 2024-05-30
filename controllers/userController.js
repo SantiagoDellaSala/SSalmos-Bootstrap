@@ -175,6 +175,53 @@ module.exports = {
   },
   
   cart: (req, res) => {
-    res.render('shoppingCart');
+      db.Product.findAll()
+        .then((products) => {
+          return res.render("shoppingCart", {
+            products,
+          });
+        })
+        .catch((error) => console.log(error));
+  },
+
+  addToCart: async (req, res) => {
+    try {
+      // Lógica para agregar un producto al carrito
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al agregar producto al carrito');
+    }
+  },
+  removeFromCart: async (req, res) => {
+    try {
+      // Lógica para eliminar un producto del carrito
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al eliminar producto del carrito');
+    }
+  },
+  updateCart: async (req, res) => {
+    try {
+      // Lógica para actualizar la cantidad de un producto en el carrito
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al actualizar carrito de compras');
+    }
+  },
+  viewCart: async (req, res) => {
+    try {
+      // Lógica para mostrar el contenido del carrito
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al mostrar carrito de compras');
+    }
+  },
+  checkout: async (req, res) => {
+    try {
+      // Lógica para procesar el pago y completar la compra
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al procesar el pago');
+    }
   }
 };

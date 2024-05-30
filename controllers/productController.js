@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+const { Op } = require('sequelize');
 const db = require("../database/models/index");
 
 module.exports = {
@@ -24,6 +26,21 @@ module.exports = {
         });
       })
       .catch((error) => console.log(error));
+  },
+  search: async (req, res) => {
+    try {
+      const { query, category, minPrice, maxPrice } = req.query;
+      const products = await db.Product.findAll({
+        where: {
+          name: { [Op.like]: `%${query}%` },
+          price: { [Op.between]: [minPrice || 0, maxPrice || Number.MAX_VALUE] },
+        }
+      });
+      res.render('productList', { products });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al buscar productos');
+    }
   },
   editProduct: (req, res) => {
     const productId = req.params.id;

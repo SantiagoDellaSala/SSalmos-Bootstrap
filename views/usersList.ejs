@@ -1,0 +1,37 @@
+<!-- views/usersList.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados de Búsqueda de Usuarios</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Agrega cualquier otro enlace a CSS que necesites -->
+</head>
+<body>
+  <div class="container">
+    <h1>Resultados de la Búsqueda de Usuarios</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre de Usuario</th>
+            <th>Correo Electrónico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <a href="/users/admin" class="btn btn-primary">Volver</a>
+  </div>
+</body>
+</html>

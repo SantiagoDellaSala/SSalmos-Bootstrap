@@ -1,6 +1,17 @@
+<!-- views/usersList.ejs -->
 <div class="card">
   <div class="card-header bg-success text-white">Usuarios</div>
   <div class="card-body">
+    <!-- Barra de búsqueda -->
+    <form action="/users/search" method="GET" class="mb-3">
+      <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Buscar usuario por ID, nombre o correo electrónico" aria-label="Buscar usuario" aria-describedby="button-search">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" id="button-search">Buscar</button>
+        </div>
+      </div>
+    </form>
+
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -29,6 +40,9 @@
     </div>
   </div>
 </div>
+
+<!-- Script de SweetAlert para confirmar eliminación -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
   function confirmDelete(userId) {
     Swal.fire({
@@ -44,7 +58,7 @@
       if (result.isConfirmed) {
         window.location.href = `/users/${userId}/delete`;
       } else {
-        window.location.href = '/admin';
+        window.location.href = '/users/admin';
       }
     });
   }

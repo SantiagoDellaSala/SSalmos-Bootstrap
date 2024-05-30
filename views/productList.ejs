@@ -1,0 +1,45 @@
+<!-- views/productList.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados de Búsqueda</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Agrega cualquier otro enlace a CSS que necesites -->
+</head>
+<body>
+  <div class="container">
+    <h1>Resultados de la Búsqueda</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(product => { %>
+            <tr>
+              <td><%= product.id %></td>
+              <td><%= product.name %></td>
+              <td><%= product.category %></td>
+              <td><%= product.price %></td>
+              <td><%= product.stock %></td>
+              <td>
+                <img src="/images/<%= product.mainImage %>" alt="<%= product.name %>" width="50" />
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <a href="/users/admin" class="btn btn-primary">Volver</a>
+  </div>
+</body>
+</html>

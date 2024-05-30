@@ -1,5 +1,5 @@
 const express = require('express');
-const { login, editUser, updateUser, profile, deleteUser, cart, renderRegister, register, logout, loginn, admin } = require('../controllers/userController');
+const { login, editUser, updateUser, profile, deleteUser, cart, renderRegister, register, logout, loginn, admin, searchUser } = require('../controllers/userController');
 const registerValidator = require('../validations/registerValidator');
 const loginValidator = require('../validations/loginValidator');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -21,5 +21,6 @@ router
   .get('/:id/profile', authMiddleware, profile)
   .get('/:id/delete', authMiddleware, deleteUser)
   .get('/shopping-cart', authMiddleware, cart)
+  .get('/search', searchUser)
 
 module.exports = router;

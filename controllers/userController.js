@@ -80,11 +80,30 @@ module.exports = {
     });
   },
 
+  searchUser: async (req, res) => {
+    try {
+      const { query } = req.query;
+      const users = await User.findAll({
+        where: {
+          [Op.or]: [
+            { id: { [Op.like]: `%${query}%` } },
+            { name: { [Op.like]: `%${query}%` } },
+            { email: { [Op.like]: `%${query}%` } }
+          ]
+        }
+      });
+      res.render('usersList', { users });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al buscar usuarios');
+    }
+  },
+
   editUser: async (req, res) => {
     try {
       const user = await User.findByPk(req.params.id);
       if (!user) {
-        return res.status(404).render("error", { message: "User not found" });
+        return res.status(404).render("error", { message: "Usuario no encontrado" });
       }
   
       if (req.session.user && req.session.user.roleId === 1) {
@@ -105,7 +124,7 @@ module.exports = {
     try {
       const user = await User.findByPk(userId);
       if (!user) {
-        return res.status(404).render("error", { message: "User not found" });
+        return res.status(404).render("error", { message: "Usuario no encontrado" });
       }
   
       // Actualizar los campos del usuario
@@ -131,7 +150,7 @@ module.exports = {
       return res.redirect(`/users/${userId}/profile`);
     } catch (error) {
       console.error(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send('Error interno del servidor');
     }
   },
   
@@ -150,7 +169,7 @@ module.exports = {
       await User.destroy({
         where: { id: req.params.id }
       });
-      res.redirect('/admin');
+      res.redirect('/users/admin');
     } catch (error) {
       console.error(error);
       res.status(500).send('Error al eliminar el usuario');

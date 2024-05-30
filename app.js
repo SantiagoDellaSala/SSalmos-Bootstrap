@@ -16,7 +16,7 @@ app.use(session({
   secret: 'santiago', // Cambia esto por una cadena segura en producción
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Asegúrate de que 'secure' esté configurado adecuadamente en producción
+  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // Cookie válida por 1 día
 }));
 
 // view engine setup
@@ -29,8 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware de autenticación
-app.use(authMiddleware);
+// Middleware para manejar la autenticación
+app.use(require('./middlewares/sessionMiddleware'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

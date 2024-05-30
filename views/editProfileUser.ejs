@@ -21,7 +21,14 @@
         </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input type="password" class="form-control" id="password" name="password">
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" name="password">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary toggle-password">
+                <i class="fa fa-eye-slash"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Guardar cambios</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/users/<%= user.id %>/profile'">Volver</button>
@@ -29,6 +36,23 @@
     </main>
 
     <%- include('./partials/footer.ejs') %>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('.toggle-password').click(function() {
+          let input = $(this).parent().prev('input');
+          let icon = $(this).find('i');
+          if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+          } else {
+            input.attr('type', 'password');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

@@ -21,7 +21,14 @@
         </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input type="password" class="form-control" id="password" name="password">
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" name="password">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('password')">
+                <i class="fa fa-eye-slash"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="role">Rol</label>
@@ -37,6 +44,22 @@
     </main>
 
     <%- include('./partials/footer.ejs') %>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling.querySelector('i');
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        } else {
+          input.type = "password";
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        }
+      }
+    </script>
   </body>
 </html>

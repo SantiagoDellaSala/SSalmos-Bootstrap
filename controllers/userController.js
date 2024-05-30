@@ -2,6 +2,9 @@ const db = require("../database/models/index");
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
 const bcrypt = require('bcryptjs');
+const showAlertAndRedirect = (res, message) => {
+  res.status(400).json({ error: message });
+};
 
 module.exports = {
   renderRegister: (req, res) => {
@@ -33,32 +36,27 @@ module.exports = {
     res.render('login.ejs');
   },
 
-  login: async (req, res) => {
+  login : async (req, res) => {
     try {
       const { usuario, contraseña } = req.body;
-
+  
       const user = await User.findOne({
         where: {
           [Op.or]: [{ username: usuario }, { email: usuario }]
         }
       });
-
-      if (!user) {
-        return res.status(401).json({ error: 'Credenciales inválidas' });
+  
+      if (!user || !(await bcrypt.compare(contraseña, user.password))) {
+        return showAlertAndRedirect(res, 'Credenciales inválidas');
       }
-
-      const isPasswordValid = await bcrypt.compare(contraseña, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Credenciales inválidas' });
-      }
-
+  
       req.session.user = user;
       return res.redirect('/');
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
-  },
+  },  
 
   admin: (req, res) => {
     Promise.all([db.Product.findAll(), db.User.findAll()])

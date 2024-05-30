@@ -4,26 +4,21 @@
   <body class="d-flex flex-column full-height">
     <%- include('./partials/header.ejs') %>
     <main class="container flex-grow-1 py-4">
-      <form action="/users/login" method="post"> <!-- Asegúrate de que el método y la acción sean correctos -->
+      <form action="/users/login" method="post">
         <div class="form-group">
           <label for="usuario">Usuario</label>
-          <input
-            type="text"
-            class="form-control"
-            id="usuario"
-            name="usuario"
-            placeholder="Usuario"
-          />
+          <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" />
         </div>
         <div class="form-group">
           <label for="contraseña">Contraseña</label>
-          <input
-            type="password"
-            class="form-control"
-            id="contraseña"
-            name="contraseña"
-            placeholder="Contraseña"
-          />
+          <div class="input-group">
+            <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Contraseña" />
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('contraseña')">
+                <i class="fa fa-eye-slash"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
       </form>
@@ -31,6 +26,70 @@
 
     <%- include('./partials/footer') %>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+      function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = document.querySelector(`#${id} + .input-group-append i`);
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        } else {
+          input.type = "password";
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        }
+      }
+    </script>
+    <script>
+      // Espera a que el DOM esté cargado
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault(); // Evita que se envíe el formulario por defecto
+    
+          // Envía la solicitud al servidor
+          try {
+            const response = await fetch('/users/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                usuario: document.getElementById('usuario').value,
+                contraseña: document.getElementById('contraseña').value
+              })
+            });
+    
+            // Maneja la respuesta del servidor
+            const data = await response.json();
+            if (response.ok) {
+              // Redirige si las credenciales son válidas
+              window.location.href = '/';
+            } else {
+              // Muestra la alerta si las credenciales son inválidas
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.error
+              });
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            // Muestra una alerta si hay un error de red o del servidor
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ha ocurrido un error. Por favor, intenta de nuevo más tarde.'
+            });
+          }
+        });
+      });
+    </script>
+    
   </body>
 </html>

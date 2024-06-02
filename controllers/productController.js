@@ -17,15 +17,14 @@ module.exports = {
     db.Product.findByPk(productId)
       .then((product) => {
         if (!product) {
-          return res
-            .status(404)
-            .render("error", { message: "Product not found" });
+          return res.status(404).render("error", { message: "Product not found" });
         }
-        return res.render("productDetail", {
-          product,
-        });
+        return res.render("productDetail", { product });
       })
       .catch((error) => console.log(error));
+  },
+  shipmentForm: (req, res) => {
+    res.render('shipmentForm');
   },
   search: async (req, res) => {
     try {

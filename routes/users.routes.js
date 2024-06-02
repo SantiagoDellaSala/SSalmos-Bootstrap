@@ -23,6 +23,7 @@ const loginValidator = require("../validations/loginValidator");
 const authMiddleware = require("../middlewares/authMiddleware");
 const checkAdminRole = require("../middlewares/checkAdminRole");
 const validationMiddleware = require("../middlewares/validationMiddleware");
+const { shipmentForm } = require("../controllers/productController");
 
 const router = express.Router();
 
@@ -44,5 +45,6 @@ router
   .post("/remove-from-cart", authMiddleware, removeFromCart)
   .post("/update-cart", authMiddleware, updateCart)
   .get("/view-cart", authMiddleware, viewCart)
-  .post("/checkout", authMiddleware, checkout);
+  .post("/checkout", authMiddleware, checkout)
+  .get('/formulario-envio', shipmentForm)
 module.exports = router;

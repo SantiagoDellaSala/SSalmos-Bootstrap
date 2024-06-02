@@ -23,5 +23,4 @@ router
   ]), productValidator, validationMiddleware, createProduct)
   .get('/search', search)
 
-
 module.exports = router;

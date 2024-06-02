@@ -40,7 +40,7 @@
             </a>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-center">
           <h1><%= product.name %></h1>
           <p>Precio: $<%= product.price %></p>
           <p>Stock disponible: <span id="stock"><%= product.stock %></span></p>
@@ -48,8 +48,8 @@
             <label for="quantity">Cantidad:</label>
             <input type="number" id="quantity" class="form-control" min="1" value="1">
           </div>
-          <form action="/users/add-to-cart" method="POST">
-            <button type="submit" class="btn btn-primary btn-block">Agregar al carrito</button>
+          <form id="purchaseForm" action="/users/add-to-cart" method="POST">
+            <button type="submit" class="btn btn-primary btn-block" id="buyButton">Comprar</button>
           </form>          
           <div class="mt-3">
             <h5>Medios de Pago</h5>
@@ -92,5 +92,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.getElementById('buyButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = '/mp-index/<%= product.id %>';
+      });
+    </script>    
   </body>
 </html>

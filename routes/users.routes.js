@@ -47,4 +47,5 @@ router
   .get("/view-cart", authMiddleware, viewCart)
   .post("/checkout", authMiddleware, checkout)
   .get('/formulario-envio', shipmentForm)
+
 module.exports = router;

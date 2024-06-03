@@ -1,6 +1,6 @@
 const db = require("../database/models/index");
 const { Op } = require('sequelize');
-const { User } = require('../database/models');
+const { User, Shoppingcart, Item, Product } = require('../database/models');
 const bcrypt = require('bcryptjs');
 const showAlertAndRedirect = (res, message) => {
   res.status(400).json({ error: message });
@@ -154,7 +154,20 @@ module.exports = {
   
   profile: async (req, res) => {
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.params.id, {
+        include: {
+          model: Shoppingcart,
+          as: 'shoppingcarts',
+          include: {
+            model: Item,
+            as: 'items',
+            include: {
+              model: Product,
+              as: 'product'
+            }
+          }
+        }
+      });
       res.render('profile', { user });
     } catch (error) {
       console.error(error);

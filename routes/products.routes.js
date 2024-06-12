@@ -4,10 +4,12 @@ const { detail, editProduct, updateProduct, deleteProduct, createProductForm, cr
 const upload = require('../middlewares/multerConfig'); // Importa la configuración de multer
 const productValidator = require('../validations/productValidator'); // Importa el archivo de validación
 const validationMiddleware = require('../middlewares/validationMiddleware'); // Importa el middleware de validación
+const { mercadoPagoConfig } = require('../controllers/indexController');
 
 /* /products */
 router
   .get('/detail/:id', detail)
+  .post("/create_preference", mercadoPagoConfig)
   .get('/edit/:id', editProduct)
   .post('/update/:id', upload.fields([
     { name: 'imagenProducto1' },

@@ -3,15 +3,7 @@ const { Op } = require('sequelize');
 const db = require("../database/models/index");
 
 module.exports = {
-  list: (req, res) => {
-    db.Product.findAll()
-      .then((products) => {
-        return res.render("index", {
-          products,
-        });
-      })
-      .catch((error) => console.log(error));
-  },
+  
   detail: (req, res) => {
     const productId = req.params.id;
     db.Product.findByPk(productId)

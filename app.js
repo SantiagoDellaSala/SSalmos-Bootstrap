@@ -9,15 +9,14 @@ const cors = require("cors");
 const indexRouter = require('./routes/index.routes');
 const usersRouter = require('./routes/users.routes');
 const productsRouter = require('./routes/products.routes');
-//const authMiddleware = require('./middlewares/authMiddleware');
 
 const app = express();
 
 app.use(session({
-  secret: 'santiago', // Cambia esto por una cadena segura en producción
+  secret: 'santiago',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // Cookie válida por 1 día
+  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 // view engine setup
@@ -31,25 +30,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-// Middleware para manejar la autenticación
 app.use(require('./middlewares/sessionMiddleware'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

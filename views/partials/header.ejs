@@ -1,8 +1,8 @@
 <header class="container flex-grow-0 p-2 border-bottom">
-  <div class="row align-items-center">
+  <div class="row align-items-center bg-dark">
     <div class="col-12 col-md-4 text-md-left text-center mb-2 mb-md-0">
       <h1 class="text-dark display-4 font-weight-bold font-italic">
-        <a href="/" class="text-dark text-decoration-none">SSalmos</a>
+        <a href="/" class="text-white text-decoration-none">SSalmos</a>
       </h1>
     </div>
     <div class="col-12 col-md-4 mb-2 mb-md-0">
@@ -16,7 +16,7 @@
         <% } else { %>
           <a href="/users/<%= user.id %>/profile" class="btn btn-outline-success mr-2"><i class="fa-solid fa-user"></i></a>
           <% if (user.roleId === 1) { %>
-            <a href="/users/admin" class="btn btn-outline-dark mr-2"><i class="fa-solid fa-user-tie"></i></a>
+            <a href="/users/admin" class="btn btn-outline-light mr-2"><i class="fa-solid fa-user-tie"></i></a>
           <% } %>
           <a href="/users/shopping-cart" class="btn btn-outline-warning mr-2"><i class="fa-solid fa-cart-shopping"></i></a>
           <a href="/users/logout" class="btn btn-outline-danger mr-2">Salir</a>

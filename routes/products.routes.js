@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { detail, editProduct, updateProduct, deleteProduct, createProductForm, createProduct, search } = require('../controllers/productController');
-const upload = require('../middlewares/multerConfig'); // Importa la configuración de multer
-const productValidator = require('../validations/productValidator'); // Importa el archivo de validación
-const validationMiddleware = require('../middlewares/validationMiddleware'); // Importa el middleware de validación
+const upload = require('../middlewares/multerConfig');
+const productValidator = require('../validations/productValidator');
+const validationMiddleware = require('../middlewares/validationMiddleware');
 const { mercadoPagoConfig } = require('../controllers/indexController');
+const authMiddleware = require("../middlewares/authMiddleware");
 
 /* /products */
 router
-  .get('/detail/:id', detail)
+  .get('/detail/:id', authMiddleware, detail)
   .post("/create_preference", mercadoPagoConfig)
   .get('/edit/:id', editProduct)
   .post('/update/:id', upload.fields([

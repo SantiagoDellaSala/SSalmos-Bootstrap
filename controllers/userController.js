@@ -158,14 +158,6 @@ module.exports = {
         include: {
           model: Shoppingcart,
           as: 'shoppingcarts',
-          include: {
-            model: Item,
-            as: 'items',
-            include: {
-              model: Product,
-              as: 'product'
-            }
-          }
         }
       });
       res.render('profile', { user });
@@ -174,7 +166,7 @@ module.exports = {
       res.status(500).send('Error al obtener el perfil del usuario');
     }
   },
-
+  
   deleteUser: async (req, res) => {
     try {
       await User.destroy({

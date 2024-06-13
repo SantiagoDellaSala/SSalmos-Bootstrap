@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
+<head>
   <%- include('./partials/head.ejs') %>
-  <body class="d-flex flex-column full-height">
-    <%- include('./partials/header.ejs') %>
+</head>
+<body class="d-flex flex-column full-height">
+  <%- include('./partials/header.ejs') %>
 
-    <main class="container flex-grow-1 py-4">
-      <section>
-        <div class="row">
-          <% products.forEach(product => { %>
-            <%- include('./partials/article.ejs', { product: product }) %>
-          <% }) %>
-        </div>
-      </section>
-    </main>
+  <div class="bg-dark text-white p-3 mb-3">
+    <h3 class="text-center">Compra mínima 10 pares</h3>
+  </div>
 
-    <%- include('./partials/footer.ejs') %>
+  <main class="container flex-grow-1 py-4">
+    <section>
+      <div class="row">
+        <% products.forEach(product => { %>
+          <%- include('./partials/article.ejs', { product: product }) %>
+        <% }) %>
+      </div>
+    </section>
+  </main>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+  <%- include('./partials/footer.ejs') %>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

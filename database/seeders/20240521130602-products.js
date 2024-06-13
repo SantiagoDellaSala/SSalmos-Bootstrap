@@ -6,7 +6,7 @@ module.exports = {
       {
         id: 1,
         name: 'Petal Grip',
-        price: 5000,
+        price: 5500,
         stock: 11,
         mainImage: '1.png',
         secondImage: '2.png',
@@ -17,7 +17,7 @@ module.exports = {
       {
         id: 2,
         name: 'Blossom Ride',
-        price: 5000,
+        price: 5500,
         stock: 17,
         mainImage: '4.png',
         secondImage: '1.png',
@@ -28,7 +28,7 @@ module.exports = {
       {
         id: 3,
         name: 'Lily Pedal',
-        price: 5000,
+        price: 5500,
         stock: 17,
         mainImage: '3.png',
         secondImage: '4.png',
@@ -39,7 +39,7 @@ module.exports = {
       {
         id: 4,
         name: 'Floral Fit',
-        price: 5000,
+        price: 5500,
         stock: 17,
         mainImage: '2.png',
         secondImage: '3.png',
@@ -50,7 +50,7 @@ module.exports = {
       {
         id: 5,
         name: 'Rose Palm',
-        price: 5000,
+        price: 5500,
         stock: 17,
         mainImage: '1.png',
         secondImage: '2.png',

@@ -26,34 +26,6 @@
         <button type="button" class="btn btn-primary" onclick="location.href='/users/<%= user.id %>/edit'">Editar Perfil</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/'">Inicio</button>
       </form>
-
-      <h3>Mis Compras</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID Compra</th>
-            <th>Fecha</th>
-            <th>Productos</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% user.shoppingcarts.forEach(cart => { %>
-            <tr>
-              <td><%= cart.id %></td>
-              <td><%= cart.createdAt.toLocaleDateString() %></td>
-              <td>
-                <ul>
-                  <% cart.items.forEach(item => { %>
-                    <li><%= item.product.name %> - Cantidad: <%= item.quantity %></li>
-                  <% }) %>
-                </ul>
-              </td>
-              <td>$<%= cart.total %></td>
-            </tr>
-          <% }) %>
-        </tbody>
-      </table>
     </main>
 
     <%- include('./partials/footer.ejs') %>

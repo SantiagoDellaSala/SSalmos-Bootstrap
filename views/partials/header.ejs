@@ -6,7 +6,14 @@
       </h1>
     </div>
     <div class="col-12 col-md-4 mb-2 mb-md-0">
-      <input type="text" class="form-control" placeholder="Buscar...">
+      <form action="/products/search" method="GET">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar..." name="query">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </div>
+        </div>
+      </form>      
     </div>
     <div class="col-12 col-md-4 text-md-right text-center">
       <div class="d-flex justify-content-center justify-content-md-end">

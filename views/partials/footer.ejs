@@ -1,34 +1,59 @@
- <footer class="container-fluid bg-dark text-light py-4">
-      <div class="container">
-        <div class="row mt-4">
+<footer class="container-fluid bg-dark text-light py-4">
+  <div class="container">
+      <div class="row mt-4">
           <div class="col-12">
-            <ul
-              class="list-unstyled mb-0 d-flex flex-wrap justify-content-center justify-content-md-between text-center"
-            >
-              <li class="mx-2 text-center">
-                <a href="/" class="text-light">Inicio</a>
-              </li>
-              <li class="mx-2 text-center">
-                <a href="/" class="text-light">Contacto</a>
-              </li>
-              <li class="mx-2 text-center">
-                <a href="/" class="text-light">Productos</a>
-              </li>
-              <li class="mx-2 text-center">
-                <a href="/" class="text-light">Terminos y condiciones</a>
-              </li>
-              <li class="mx-2 text-center">
-                <a href="/" class="text-light">Nosotros</a>
-              </li>
-            </ul>
+              <ul class="list-unstyled mb-0 d-flex flex-wrap justify-content-center justify-content-md-between text-center">
+                  <li class="mx-2 text-center">
+                      <a href="/" class="text-light">Inicio</a>
+                  </li>
+                  <li class="mx-2 text-center">
+                      <a href="javascript:void(0);" onclick="showContact()" class="text-light">Contacto</a>
+                  </li>
+                  <li class="mx-2 text-center">
+                      <a href="/" class="text-light">Productos</a>
+                  </li>
+                  <li class="mx-2 text-center">
+                      <a href="/users/terminos-y-condiciones" class="text-light" target="_blank">Terminos y condiciones</a>
+                  </li>
+                  <li class="mx-2 text-center">
+                      <a href="/users/nosotros" class="text-light" target="_blank">Nosotros</a>
+                  </li>
+              </ul>
           </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-12">
-            <p class="mb-0 text-center">
-              © 2024 Web Wonders. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
       </div>
-    </footer>
+      <div class="row mt-4">
+          <div class="col-12">
+              <p class="mb-0 text-center">
+                  © 2024 Web Wonders. Todos los derechos reservados.
+              </p>
+          </div>
+      </div>
+  </div>
+</footer>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function showContact() {
+      Swal.fire({
+          title: 'Contáctanos',
+          html: `
+              <div class="social-link">
+                  <img class="social-icon" src="/images/icon_facebook.png" alt="Facebook">
+                  <a href="https://www.facebook.com/tu-pagina" target="_blank">Facebook</a>
+              </div>
+              <div class="social-link">
+                  <img class="social-icon" src="/images/icon_instagram.png" alt="Instagram">
+                  <a href="https://www.instagram.com/tu-pagina" target="_blank">Instagram</a>
+              </div>
+              <div class="social-link">
+                  <img class="social-icon" src="/images/icon_whatsapp.png" alt="whatsapp">
+                  <a href="https://wa.me/1139005157" target="_blank">WhatsApp</a>
+              </div>
+          `,
+          showCloseButton: true,
+          focusConfirm: false,
+          confirmButtonText: 'Cerrar',
+      });
+  }
+</script>

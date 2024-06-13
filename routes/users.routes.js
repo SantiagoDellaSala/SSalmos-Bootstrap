@@ -17,6 +17,8 @@ const {
   updateCart,
   viewCart,
   checkout,
+  terminosCondiciones,
+  nosotros,
 } = require("../controllers/userController");
 const registerValidator = require("../validations/registerValidator");
 const loginValidator = require("../validations/loginValidator");
@@ -47,5 +49,7 @@ router
   .get("/view-cart", authMiddleware, viewCart)
   .post("/checkout", authMiddleware, checkout)
   .get('/formulario-envio', shipmentForm)
+  .get('/terminos-y-condiciones', terminosCondiciones)
+  .get('/nosotros', nosotros);
 
 module.exports = router;

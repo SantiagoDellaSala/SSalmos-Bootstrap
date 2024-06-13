@@ -228,5 +228,11 @@ module.exports = {
       console.error(error);
       res.status(500).send('Error al procesar el pago');
     }
+  },
+  terminosCondiciones: (req, res) => {
+    res.render('terminosCondiciones');
+  },
+  nosotros: (req, res) => {
+    res.render('nosotros')
   }
 };

@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
+    talle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     mainImage: {
       type: DataTypes.STRING(255),
       allowNull: false,

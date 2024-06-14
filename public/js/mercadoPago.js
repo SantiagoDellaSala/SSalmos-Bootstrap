@@ -7,7 +7,7 @@ const mp = new MercadoPago("TEST-cc3bde08-97eb-4673-b967-43dbda11c046", {
       const orderData = {
         title: document.querySelector(".nombreDetail").innerText,
         quantity: parseInt(document.getElementById("quantity").value, 10),
-        price: parseFloat(document.querySelector(".Precio").innerText.replace("Precio: $", "").trim()),
+        price: 5500,
       };
   
       const response = await fetch("http://localhost:3000/products/create_preference", {

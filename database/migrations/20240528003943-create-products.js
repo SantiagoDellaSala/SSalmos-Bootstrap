@@ -21,6 +21,10 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
       },
+      talle: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       mainImage: {
         type: Sequelize.STRING(255),
         allowNull: false,

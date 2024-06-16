@@ -2,6 +2,7 @@ const db = require("../database/models/index");
 const { Op } = require('sequelize');
 const { User, Shoppingcart, Item, Product } = require('../database/models');
 const bcrypt = require('bcryptjs');
+
 const showAlertAndRedirect = (res, message) => {
   res.status(400).json({ error: message });
 };
@@ -14,8 +15,15 @@ module.exports = {
   register: async (req, res) => {
     try {
       const { nombre, apellido, usuarioRegistro, email, contraseñaRegistro } = req.body;
+      
+      // Verificar que todos los datos necesarios están presentes en req.body
+      if (!nombre || !apellido || !usuarioRegistro || !email || !contraseñaRegistro) {
+        return res.status(400).render('register', { errors: [{ msg: 'Todos los campos son requeridos' }] });
+      }
+
       const hashedPassword = await bcrypt.hash(contraseñaRegistro, 10);
 
+      // Crear un nuevo usuario en la base de datos
       const newUser = await User.create({
         name: nombre,
         lastname: apellido,
@@ -23,6 +31,13 @@ module.exports = {
         email: email,
         password: hashedPassword,
         roleId: 2
+      });
+
+      // Crear un carrito para el usuario
+      await Shoppingcart.create({
+        total: 0, // Puedes inicializar el total en 0 u otro valor predeterminado
+        stateId: 1, // ID del estado del carrito, puede ser por ejemplo 'en proceso'
+        userId: newUser.id // Asignar el ID del usuario recién creado al carrito
       });
 
       return res.redirect('/');
@@ -179,14 +194,37 @@ module.exports = {
     }
   },
   
-  cart: (req, res) => {
-      db.Product.findAll()
-        .then((products) => {
-          return res.render("shoppingCart", {
-            products,
-          });
-        })
-        .catch((error) => console.log(error));
+  cart: async (req, res) => {
+    try {
+      const userId = req.session.user.id; // Obtener el ID del usuario de la sesión
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Shoppingcart,
+          as: 'shoppingcarts',
+          include: {
+            model: Item,
+            as: 'items',
+            include: {
+              model: Product,
+              as: 'product'
+            }
+          }
+        }
+      });
+
+      if (!user || !user.shoppingcarts || !user.shoppingcarts[0] || !user.shoppingcarts[0].items) {
+        return res.status(404).render("error", { message: "Usuario no encontrado o carrito vacío" });
+      }
+
+      // Aquí deberías tener acceso a los productos a través de user.shoppingcarts[0].items
+      const products = user.shoppingcarts[0].items.map(item => item.product);
+
+      // Renderizar la vista del carrito con los datos del usuario y sus productos
+      res.render('shoppingCart', { products });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al mostrar carrito de compras');
+    }
   },
 
   addToCart: async (req, res) => {

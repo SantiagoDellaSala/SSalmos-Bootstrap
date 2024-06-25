@@ -14,8 +14,8 @@ module.exports = {
         allowNull: false
       },
       price: {
-        type: Sequelize.DECIMAL(10, 2),
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       shoppingcartId: {
         type: Sequelize.INTEGER,

@@ -16,10 +16,10 @@ const {
   removeFromCart,
   updateCart,
   viewCart,
-  checkout,
   terminosCondiciones,
-  nosotros,
+  nosotros
 } = require("../controllers/userController");
+
 const registerValidator = require("../validations/registerValidator");
 const loginValidator = require("../validations/loginValidator");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -44,12 +44,11 @@ router
   .get("/search", searchUser)
   .get("/shopping-cart", authMiddleware, cart)
   .get("/view-cart", authMiddleware, viewCart)
-  .post("/add-to-cart", authMiddleware, addToCart)
+  .post("/:userId/add-to-cart", authMiddleware, addToCart)
   .post("/remove-from-cart", authMiddleware, removeFromCart)
   .post("/update-cart", authMiddleware, updateCart)
-  .post("/checkout", authMiddleware, checkout)
   .get('/formulario-envio', shipmentForm)
   .get('/terminos-y-condiciones', terminosCondiciones)
-  .get('/nosotros', nosotros);
+  .get('/nosotros', nosotros)
 
 module.exports = router;

@@ -20,36 +20,78 @@
               </tr>
             </thead>
             <tbody>
-              <% products.forEach(product => { %>
+              <% items.forEach(item => { %>
                 <tr>
                   <td>
-                    <input type="checkbox" name="eliminar[]" value="<%= product.id %>">
+                    <input type="checkbox" name="eliminar[]" value="<%= item.product.id %>">
                   </td>
                   <td>
-                    <img src="<%= product.mainImage %>" alt="<%= product.name %>" class="img-thumbnail" style="width: 100px; height: 100px;">
+                    <img src="/images/<%= item.product.mainImage %>" alt="<%= item.product.name %>" class="img-thumbnail" style="width: 100px; height: 100px;">
                   </td>
-                  <td><%= product.name %></td>
-                  <td>$<%= product.price %></td>
+                  <td><%= item.product.name %></td>
+                  <td>$<%= item.price %></td>
                   <td>
-                    <input type="number" name="cantidad[]" value="1" class="form-control" style="width: 60px;">
+                    <input type="number" name="cantidad[]" value="<%= item.quantity %>" class="form-control cantidad" style="width: 60px;">
                   </td>
-                  <td>$<%= product.price * 1 %></td>
+                  <td>$<%= item.price * item.quantity %></td>
                 </tr>
               <% }); %>
             </tbody>
           </table>
         </div>
         <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-primary" id="pagarBtn">Pagar</button>
           <button type="submit" class="btn btn-danger">Eliminar seleccionados</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='/'">Volver al inicio</button>
         </div>
+        <div class="mt-4">
+          <h4 id="totalCarrito">Total: $<%= total %></h4>
+        </div>
       </form>
-    </main>
+      <!-- index.ejs -->
 
-    <%- include('./partials/footer.ejs') %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+document.getElementById("pagarBtn").addEventListener("click", async () => {
+  try {
+    const cantidades = document.querySelectorAll(".cantidad");
+    let totalCantidad = 0;
+    let totalPrecio = 0;
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    cantidades.forEach((cantidadInput) => {
+      const cantidad = parseInt(cantidadInput.value, 10);
+      const precio = parseFloat(cantidadInput.closest("tr").querySelector("td:nth-child(4)").innerText.replace('$', ''));
+
+      totalCantidad += cantidad;
+      totalPrecio += cantidad * precio;
+    });
+
+    const orderData = {
+      title: "Compra en el sitio", // Nombre del producto para MercadoPago
+      quantity: totalCantidad,     // Cantidad total de productos
+      price: parseFloat(totalPrecio.toFixed(2)) // Precio total de la compra
+    };
+
+    const response = await fetch("http://localhost:3000/users/create_preference", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(orderData)
+    });
+
+    const preference = await response.json();
+
+    if (preference && preference.id) {
+      createCheckoutButton(preference.id);
+    } else {
+      throw new Error('No se recibió un ID de preferencia válido');
+    }
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
+});
+</script>
   </body>
 </html>

@@ -4,13 +4,11 @@ const { detail, editProduct, updateProduct, deleteProduct, createProductForm, cr
 const upload = require('../middlewares/multerConfig');
 const productValidator = require('../validations/productValidator');
 const validationMiddleware = require('../middlewares/validationMiddleware');
-const { mercadoPagoConfig } = require('../controllers/indexController');
 const authMiddleware = require("../middlewares/authMiddleware");
 
 /* /products */
 router
   .get('/detail/:id', authMiddleware, detail)
-  .post("/create_preference", mercadoPagoConfig)
   .get('/edit/:id', editProduct)
   .post('/update/:id', upload.fields([
     { name: 'imagenProducto1' },

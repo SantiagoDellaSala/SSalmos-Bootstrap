@@ -1,5 +1,5 @@
 <article class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-  <div class="card">
+  <div class="card card-hover">
     <img src="/images/<%= product.mainImage %>" class="card-img-top" alt="<%= product.name %>" />
     <div class="card-body bg-dark">
       <h5 class="card-title text-white"><%= product.name %></h5>
@@ -8,3 +8,13 @@
     </div>
   </div>
 </article>
+
+<style>
+.card-hover {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+}
+</style>

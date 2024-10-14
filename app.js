@@ -9,6 +9,7 @@ const cors = require("cors");
 const indexRouter = require('./routes/index.routes');
 const usersRouter = require('./routes/users.routes');
 const productsRouter = require('./routes/products.routes');
+const shoppingCartRouter = require('./routes/shoppingCart.routes');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(require('./middlewares/sessionMiddleware'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/sc', shoppingCartRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));

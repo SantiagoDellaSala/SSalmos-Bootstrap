@@ -6,7 +6,7 @@
 
     <main class="container flex-grow-1 py-4">
       <h2>Carrito de Compras</h2>
-      <form id="carritoForm" action="/eliminar-seleccionados" method="POST">
+      <form id="carritoForm" action="/users/update-cart" method="POST">
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -31,7 +31,8 @@
                   <td><%= item.product.name %></td>
                   <td>$<%= item.price %></td>
                   <td>
-                    <input type="number" name="cantidad[]" value="<%= item.quantity %>" class="form-control cantidad" style="width: 60px;">
+                    <input type="number" name="cantidad[]" value="<%= item.quantity %>" class="form-control cantidad" style="width: 60px;" min="1">
+                    <input type="hidden" name="productId[]" value="<%= item.product.id %>">
                   </td>
                   <td>$<%= item.price * item.quantity %></td>
                 </tr>
@@ -40,58 +41,16 @@
           </table>
         </div>
         <div class="d-flex justify-content-between mt-4">
-          <button type="submit" class="btn btn-danger">Eliminar seleccionados</button>
+          <button type="submit" class="btn btn-primary" formaction="/users/update-cart">Actualizar Cantidades</button>
+          <button type="submit" class="btn btn-danger" formaction="/users/remove-from-cart">Eliminar Seleccionados</button>
           <button type="button" class="btn btn-secondary" onclick="location.href='/'">Volver al inicio</button>
         </div>
         <div class="mt-4">
           <h4 id="totalCarrito">Total: $<%= total %></h4>
         </div>
       </form>
-      <!-- index.ejs -->
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-<script>
-document.getElementById("pagarBtn").addEventListener("click", async () => {
-  try {
-    const cantidades = document.querySelectorAll(".cantidad");
-    let totalCantidad = 0;
-    let totalPrecio = 0;
-
-    cantidades.forEach((cantidadInput) => {
-      const cantidad = parseInt(cantidadInput.value, 10);
-      const precio = parseFloat(cantidadInput.closest("tr").querySelector("td:nth-child(4)").innerText.replace('$', ''));
-
-      totalCantidad += cantidad;
-      totalPrecio += cantidad * precio;
-    });
-
-    const orderData = {
-      title: "Compra en el sitio", // Nombre del producto para MercadoPago
-      quantity: totalCantidad,     // Cantidad total de productos
-      price: parseFloat(totalPrecio.toFixed(2)) // Precio total de la compra
-    };
-
-    const response = await fetch("http://localhost:3000/users/create_preference", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(orderData)
-    });
-
-    const preference = await response.json();
-
-    if (preference && preference.id) {
-      createCheckoutButton(preference.id);
-    } else {
-      throw new Error('No se recibió un ID de preferencia válido');
-    }
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-});
-</script>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>

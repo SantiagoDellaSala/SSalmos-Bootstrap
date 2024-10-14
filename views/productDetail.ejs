@@ -42,11 +42,11 @@
         </div>
         <div class="col-md-6 text-center">
           <h1 class="nombreDetail"><%= product.name %></h1>
-          <p class="Precio">Precio: <b>$5500</b></p>
+          <p class="Precio">Precio: <b>$<%= product.price %></b></p>
           <p>Stock disponible: <span id="stock"><%= product.stock %></span></p>
           <div class="form-group">
             <label for="quantity">Cantidad:</label>
-            <input type="number" id="quantity" class="form-control" value="10">
+            <input type="number" id="quantity" class="form-control" value="1">
           </div>
           <div class="form-group">
             <label for="talle">Talle:</label>
@@ -62,27 +62,7 @@
       <div class="row mt-4">
         <div class="col-12">
           <p>
-            Maximiza tu rendimiento y protege tus manos con nuestros guantes deportivos multifuncionales, perfectos para gimnasio, spinning y una variedad de actividades físicas. Diseñados para ofrecerte comodidad y durabilidad, estos guantes combinan materiales de alta calidad para asegurar una experiencia óptima.
-            <br>
-            <br>
-            <h6>Características Principales:</h6>
-            *Parte Superior de Lycra: La parte superior está confeccionada con lycra elástica, lo que garantiza una ventilación excelente y un ajuste cómodo y flexible, permitiéndote moverte libremente sin restricciones.
-            <br>
-            *Palma de Cuero de Calidad: La palma de los guantes está hecha de cuero de alta calidad, proporcionando una protección superior y un agarre firme y seguro. El cuero también ofrece una mayor resistencia al desgaste, asegurando una larga vida útil de los guantes.
-            <br>
-            *Versatilidad: Ideales para una amplia gama de actividades, incluyendo levantamiento de pesas, ciclismo de interior, entrenamiento funcional y cualquier otra actividad que requiera una protección adicional en las manos.
-            <br>
-            *Comodidad y Ajuste: Diseñados para adaptarse perfectamente a la forma de tus manos, estos guantes cuentan con un cierre ajustable que garantiza un ajuste seguro y personalizado.
-            <br>
-            <br>
-            <h6>Beneficios: </h6> 
-            *Protección: Protege tus manos de callosidades, ampollas y lesiones, permitiéndote enfocarte en tu entrenamiento sin molestias.
-            <br>
-            *Rendimiento: Mejora tu agarre y control sobre los equipos, maximizando tu rendimiento en cada sesión de entrenamiento.
-            <br>
-            *Durabilidad: Materiales de alta calidad que aseguran una larga vida útil y una resistencia superior al uso intensivo.
-            <br>
-            *Ya sea que estés entrenando en el gimnasio, participando en clases de spinning, o realizando cualquier otra actividad física que requiera protección para tus manos, nuestros guantes deportivos multifuncionales son la elección perfecta para acompañarte en tu camino hacia un mejor rendimiento y protección.
+            <!-- Aquí puedes poner la descripción del producto -->
           </p>
         </div>
       </div>
@@ -95,30 +75,33 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-    <script>document.getElementById('add-to-cart-btn').addEventListener('click', function() {
-      const userId = "<%= user.id %>"; // Obtén el ID del usuario de los datos de la plantilla
-      const productId = "<%= product.id %>";
-      const quantity = document.getElementById('quantity').value;
-  
-      fetch(`/users/${userId}/add-to-cart`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ productId, quantity })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          Swal.fire('Error', data.error, 'error');
-        } else {
-          Swal.fire('Éxito', data.message, 'success');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Hubo un problema al agregar el producto al carrito', 'error');
+    <script>
+      document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+        const userId = "<%= user.id %>"; // Asegúrate de que el `user` esté definido en la plantilla
+        const productId = "<%= product.id %>";
+        const quantity = document.getElementById('quantity').value;
+
+        // Asegúrate de que la ruta coincide con la ruta de tu router
+        fetch(`/users/${userId}/add-to-cart`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId, quantity }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            Swal.fire('Error', data.error, 'error');
+          } else {
+            Swal.fire('Éxito', data.message, 'success');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          Swal.fire('Error', 'Hubo un problema al agregar el producto al carrito', 'error');
+        });
       });
-    });</script>
+    </script>
   </body>
 </html>

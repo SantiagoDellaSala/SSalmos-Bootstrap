@@ -1,4 +1,4 @@
-<header class="container flex-grow-0 p-2 border-bottom">
+<header class="container flex-grow-0 border-bottom">
   <div class="row align-items-center bg-white">
     <div class="col-12 col-md-4 text-md-left text-center mb-2 mb-md-0">
       <h1 class="text-dark display-4 font-weight-bold font-italic">
@@ -34,3 +34,12 @@
     </div>
   </div>
 </header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0; /* Fija el header en la parte superior */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background-color: white; /* Fondo blanco cuando el header se pega */
+  }
+</style>
